@@ -14,13 +14,13 @@
 
 // Freq_Timer = (48.000.000 / 128) = 375 kHz
 // Ticks = (375k * 60.000 us) / 1.000.000 = 22.500
-#define PWM_MOD_TICKS       (((TPM_CLK_HZ / TPM_PRESCALER) * PWM_PERIOD_US) / 1000000u - 1u)
+#define PWM_MOD_TICKS           (((TPM_CLK_HZ / TPM_PRESCALER) * PWM_PERIOD_US) / 1000000u - 1u)
 
 // Conta base: ((375k * 10us) + 999.999) / 1.000.000 = 4
-#define PWM_HIGH_TICKS      ((((TPM_CLK_HZ / TPM_PRESCALER) * PWM_HIGH_US) + 999999u) / 1000000u)
+#define PWM_HIGH_TICKS          ((((TPM_CLK_HZ / TPM_PRESCALER) * PWM_HIGH_US) + 999999u) / 1000000u)
 
-// 
-#define TPM_PWM_HIGH_TRUE          (TPM_CnSC_MSB_MASK | TPM_CnSC_ELSB_MASK)
+// Configuração do TPM
+#define TPM_PWM_HIGH_TRUE       (TPM_CnSC_MSB_MASK | TPM_CnSC_ELSB_MASK)
 
 volatile uint16_t captured = 0;
 volatile uint16_t rise_time = 0;
