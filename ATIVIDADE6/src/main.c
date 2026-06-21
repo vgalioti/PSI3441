@@ -110,7 +110,7 @@ void accel_thread(void *p1, void *p2, void *p3)
 // MAIN
 void main(void)
 {
-    printk("\nIniciando Atividade 6 (PSI3441)\n");
+    printk("\n========== Atividade 6 ==========\n");
 
     // Botão
     if (!gpio_is_ready_dt(&button)) {
