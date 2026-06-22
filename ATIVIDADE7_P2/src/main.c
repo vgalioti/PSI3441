@@ -13,15 +13,20 @@ static struct k_thread padeiro_thread_data;
 static struct k_thread cliente_thread_data;
 
 volatile int saldo_vitrine = 0;
+K_MUTEX_DEFINE(mutex_vitrine);
 
 void padeiro_thread(void *arg1, void *arg2, void *arg3)
 {
     while (1) {
         k_sleep(K_MSEC(1500));
+        k_mutex_lock(&mutex_vitrine, K_FOREVER);
+
         saldo_vitrine++;
         printk("Padeiro: Pão pronto!\n");
         printk("Saldo da vitrine: %d\n", saldo_vitrine);
         printk("=====================================\n");
+
+        k_mutex_unlock(&mutex_vitrine);
     }
 }
 
@@ -29,16 +34,20 @@ void cliente_thread(void *arg1, void *arg2, void *arg3)
 {
     while (1) {
         k_sleep(K_MSEC(1500));
+        k_mutex_lock(&mutex_vitrine, K_FOREVER);
+
         saldo_vitrine--;
         printk("Cliente: Comprei pão!\n");
         printk("Saldo da vitrine: %d\n", saldo_vitrine);
         printk("=====================================\n");
+
+        k_mutex_unlock(&mutex_vitrine);
     }
 }
 
 void main(void)
 {
-    printk("\n========== Atividade 7 - Parte 1 ==========\n");
+    printk("\n========== Atividade 7 - Parte 2 ==========\n");
 
     k_thread_create(&cliente_thread_data, cliente, CLIENTE_STACK_SIZE,
                     cliente_thread, NULL, NULL, NULL,
